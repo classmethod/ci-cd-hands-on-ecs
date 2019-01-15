@@ -28,11 +28,6 @@ Parameters:
     Type: String
     Default: 10.192.130.0/24
 
-  ContainerImage:
-    Description: Please enter container image for ECS.
-    Type: String
-    Default: 738965884675.dkr.ecr.ap-northeast-1.amazonaws.com/ci-cd-hands-on:node
-
   InstanceType:
     Description: Please enter EC2 instance type.
     Type: String
@@ -56,14 +51,14 @@ Resources:
       CidrBlock: !Ref VpcCIDR
       Tags:
         - Key: Name
-          Value: demo-infra-VPC
+          Value: !Sub ${EnvironmentName}-VPC
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: demo-infra-InternetGateway
+          Value: !Sub ${EnvironmentName}-InternetGateway
 
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -80,7 +75,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: demo-infra-PublicSubnet1
+          Value: !Sub ${EnvironmentName}-PublicSubnet1
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
@@ -91,7 +86,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: demo-infra-PublicSubnet2
+          Value: !Sub ${EnvironmentName}-PublicSubnet2
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -101,7 +96,7 @@ Resources:
       CidrBlock: !Ref PrivateSubnet1CIDR
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateSubnet1
+          Value: !Sub ${EnvironmentName}-PrivateSubnet1
 
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
@@ -111,7 +106,7 @@ Resources:
       CidrBlock: !Ref PrivateSubnet2CIDR
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateSubnet2
+          Value: !Sub ${EnvironmentName}-PrivateSubnet2
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
@@ -119,7 +114,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: demo-infra-PublicRouteTable
+          Value: !Sub ${EnvironmentName}-PublicRouteTable
 
   DefaultPublicRoute:
     Type: AWS::EC2::Route
@@ -147,7 +142,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateRouteTable
+          Value: !Sub ${EnvironmentName}-PrivateRouteTable
 
   DefaultPrivateRoute:
     Type: AWS::EC2::Route
@@ -181,7 +176,7 @@ Resources:
       SubnetId: !Ref PublicSubnet1
       Tags:
         - Key: Name
-          Value: demo-infra-NatGateway
+          Value: !Sub ${EnvironmentName}-NatGateway
 
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -199,7 +194,7 @@ Resources:
           SourceSecurityGroupId: !Ref ALBSecurityGroup
       Tags:
         - Key: Name
-          Value: demo-infra-DemoAppSecurityGroup
+          Value: !Sub ${EnvironmentName}-DemoAppSecurityGroup
 
   ALBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -212,7 +207,7 @@ Resources:
           IpProtocol: "-1"
       Tags:
         - Key: Name
-          Value: demo-infra-ALBSecurityGroup
+          Value: !Sub ${EnvironmentName}-ALBSecurityGroup
 
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
@@ -502,7 +497,7 @@ Resources:
         - !Ref TargetGroup
       Tags:
         - Key: Name
-          Value: demo-infra-ASG
+          Value: !Sub ${EnvironmentName}-ASG
           PropagateAtLaunch: true
     CreationPolicy:
       ResourceSignal:
@@ -516,6 +511,7 @@ Resources:
   ALB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
+      Name: !Sub ${EnvironmentName}-ALB
       Scheme: internet-facing
       LoadBalancerAttributes:
         - Key: idle_timeout.timeout_seconds

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-app_src_path="/usr/src/app"
-app_log_path="/var/log/app"
+app_path="/usr/src/app/src/index.js"
 
-mkdir -p "$app_src_path" "$app_log_path"
+app_src_dir_path="/usr/src/app"
+app_log_dir_path="/var/log/app"
+
+forever stop "$app_path"
+
+mkdir -p "$app_src_dir_path" "$app_log_dir_path"

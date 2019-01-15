@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
+    //while(true){} // CPUをたくさん使用する処理
+    
     const numbers = fizzbuzz(req.query.count);
     res.render("index.ejs", { numbers: numbers });
 });

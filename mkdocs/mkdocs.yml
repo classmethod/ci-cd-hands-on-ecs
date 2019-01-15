@@ -1,0 +1,14 @@
+site_name: CI/CDハンズオン
+nav:
+  - Introduction: README.md
+  - 全体構成: architecture.md
+  - パイプライン構築の準備: preparation.md
+  - ハンズオンで構築する構成: architecture.md
+  - 動作確認: check-before-deploy.md
+  - CodeDeploy: codedeploy.md
+  - CodePipeline: codepipeline.md
+  - 自動デプロイ！: auto_deploy.md
+  - アラートを発火させてみる: load.md
+  - ロールバックしてみる: load.md
+  - まとめ: conclusion.md
+theme: material

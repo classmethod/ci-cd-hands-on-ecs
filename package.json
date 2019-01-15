@@ -4,7 +4,8 @@
   "description": "fizzbuzz application",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/**/*.test.js"
+    "test": "./node_modules/mocha/bin/mocha test/**/*.test.js",
+    "build-doc": "cd mkdocs && mkdocs build -d ../docs"
   },
   "author": "cm-yamasaki.michihiro",
   "license": "ISC",
