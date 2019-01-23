@@ -6,11 +6,11 @@
 
 サンプルアプリケーションは、指定された数まで FizzBuzz を表示する Node.js による簡単なアプリケーションです
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/fork-640x210.png" alt="" width="640" height="210" class="alignnone size-medium wp-image-348765" />
+![fork](images/fork.png)
 
 上のリンクから GitHub の当該リポジトリのページに移動し、右上の `Fork` というボタンからフォークを実行します。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/f514b4e78f8a717b73707cc3b38dcff4-640x353.png" alt="" width="640" height="353" class="alignnone size-medium wp-image-348767" />
+![clone](images/clone.png)
 
 自分の GitHub アカウント上に作成されたフォークしたリポジトリから、ローカルの PC にクローンします。作業用のディレクトリで以下のコマンドを実行します。
 
@@ -56,4 +56,4 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 作成したスタックの出力に`ALBDNSName`というキーで出力された値が、今回のサンプルアプリケーションのアクセス先の URL です。アドレスバーにコピペして、サンプルアプリケーションの動作を確認します。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/99049011a73b9c92d2967f57d2331c56-640x360.png" alt="" width="640" height="360" class="alignnone size-medium wp-image-349754"/>
+![初期状態](images/sample-application-initial.png)

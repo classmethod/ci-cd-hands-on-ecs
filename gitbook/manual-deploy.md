@@ -35,17 +35,17 @@ ECS の設定の修正で使用するため、イメージをプッシュした�
 
 マネジメントコンソールから ECS の画面に移動します。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ecs-640x483.png" alt="" width="640" height="483" class="alignnone size-medium wp-image-349183" />
+![コンソールからECS](images/console-to-ecs.png)
 
 まず、タスク定義の新しいリビジョンを作成します。
 
 環境構築用スタックによって作成されたタスクの新しいリビジョンの作成画面を表示します。
 コンテナ名 fizzbuzz の設定画面に移動し、イメージの指定を先程プッシュしたイメージのものに書き換え新しいリビジョンを作成します。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/a3eea352fa04680f29ce2e75163b5ca5-640x344.png" alt="" width="640" height="344" class="alignnone size-medium wp-image-349193" />
+![イメージを置き換え](images/edit-container-image.png)
 
 次に、環境構築用スタックによって作成されたサービスの編集画面に移動し、新しいタスク定義のリビジョンを指定するように編集をおこない、サービスの更新を実行します。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ef41ba4015f8a2f42ad5382c33fc1352-640x367.png" alt="" width="640" height="367" class="alignnone size-medium wp-image-349198" />
+![タスク定義のリビジョンを修正](images/edit-task-definition-revision.png)
 
 しばらくすると新しいタスク定義に基づくタスクが実行され、コードの修正が反映されます。

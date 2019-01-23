@@ -12,7 +12,7 @@
 
 マネジメントコンソールのトップ画面より「CodePipeline」をクリックします。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-15-640x195.png" alt="devops-hands-on-15" width="640" height="195" class="alignnone size-medium wp-image-259029" />
+![コンソールのトップからCodePipelineに](images/console-to-codepipeline.png)
 
 すると、以下のような画面が表示されます。
 
