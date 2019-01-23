@@ -1,7 +1,7 @@
 {
   "name": "ci-cd-hands-on",
   "version": "1.0.0",
-  "description": "## アジェンダ",
+  "description": "ci-cd-hands-on",
   "main": "index.js",
   "directories": {
     "doc": "docs"
