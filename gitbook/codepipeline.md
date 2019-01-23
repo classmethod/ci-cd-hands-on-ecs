@@ -8,62 +8,130 @@
 
 では、早速作成していきましょう。
 
+### パイプラインの作成開始まで
+
 マネジメントコンソールのトップ画面より「CodePipeline」をクリックします。
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-15-640x195.png" alt="devops-hands-on-15" width="640" height="195" class="alignnone size-medium wp-image-259029" />
 
-まだパイプラインを作成していない場合は以下のような画面が表示されるので「今すぐ始める」をクリックします。
+すると、以下のような画面が表示されます。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-16-640x269.png" alt="devops-hands-on-16" width="640" height="269" class="alignnone size-medium wp-image-259031" />
+![CodePipeline初期画面](images/codepipeline-initial.png)
 
-パイプラインのセットアップが開始するのでパイプライン名として`hands-on-pipeline`と入力して「次のステップ」をクリックします。
+「パイプラインの作成」をクリックします。
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-17-640x204.png" alt="devops-hands-on-17" width="640" height="204" class="alignnone size-medium wp-image-259032" />
+### 「パイプラインの設定の選択」画面
 
-ソースプロバイダのセットアップが始まるので以下の表のように入力後、「次のステップ」をクリックします。
+「パイプラインの設定の選択」画面に遷移します。
 
-| 入力項目         | 値                           |
-| ---------------- | ---------------------------- |
-| ソースプロバイダ | GitHub                       |
-| リポジトリ       | フォークしておいたリポジトリ |
-| ブランチ         | master                       |
+![パイプラインの設定の選択](images/codepipeline-config-general.png)
 
-ビルドプロバイダのセットアップが始まるので以下の表のように入力後、「ビルドプロジェクトの保存」をクリックしてから「次のステップ」をクリックします。
+以下の表のように入力します。「次へ」をクリックします。
 
-| 入力項目                 | 値                                                                                            |
-| ------------------------ | --------------------------------------------------------------------------------------------- |
-| ビルドプロバイダ         | AWS CodeBuild                                                                                 |
-| プロジェクトの設定       | 新しいビルドプロジェクトを作成                                                                |
-| プロジェクト名           | hands-on-project                                                                              |
-| 環境イメージ             | AWS CodeBuild マネージド型イメージの使用                                                      |
-| OS                       | Ubuntu                                                                                        |
-| ランタイム               | Node.js                                                                                       |
-| バージョン               | aws/codebuild/nodejs:10.1.0                                                                   |
-| ビルド仕様               | ソースコードのルートディレクトリの buildspec.yml を使用                                       |
-| キャッシュ タイプ        | キャッシュなし                                                                                |
-| CodeBuild サービスロール | `アカウントから既存のロールを選択します`を選択し環境構築用スタックの出力の値を入力            |
-| VPC                      | No VPC                                                                                        |
-| 特権付与(アドバンスト内) | ✔                                                                                             |
+| 入力項目               | 値                                              |
+| ---------------------- | ----------------------------------------------- |
+| パイプライン名         | `hands-on-pipeline`                             |
+| サービスロール         | 既存のサービスロール                            |
+| サービスロール名       | `hands-on-environment-CodePipeline-ServiceRole` |
+| アーティファクトストア | デフォルトの場所　                              |
 
-デプロイプロバイダのセットアップが始まるのでプロバイダに「Amazon ECS」を入力後、「AWS CodeDeploy に新たにアプリケーションを作成します。」のリンクをクリックします。
+入力が終わったら、「次へ」をクリックします。
+
+### 「ソースステージの追加」画面
+
+「ソースステージの追加」画面に遷移します。
+
+![ソースステージの追加](images/codepipeline-config-source.png)
+
+以下の表のように入力します。
+
+| 入力項目           | 値                             |
+| ------------------ | ------------------------------ |
+| ソースプロバイダ   | GitHub                         |
+| リポジトリ         | `フォークしておいたリポジトリ` |
+| ブランチ           | master                         |
+| 変更検出オプション | GitHub ウェブフック(推奨)      |
+
+入力が終わったら、「次へ」をクリックします。
+
+### 「ビルドステージの追加」　画面
+
+「ビルドステージの追加」画面に遷移します。
+
+![ビルドステージの追加](images/codepipeline-config-build.png)
+
+ビルドプロバイダとして、`AWS CodeBuild`を選択すると表示される`Create Project`というボタンをクリックします。
+
+![Create Project](images/codepipeline-config-build-after-select.png)
+
+#### CodeBuildのプロジェクト作成ウィンドウ
+
+CodeBuild のプロジェクト作成画面が新しいウィンドウで開きます。
+
+![CodeBuildのプロジェクト作成画面](images/codebuild.png)
+
+CodeBuild のプロジェクトを作成していきます。
+
+##### プロジェクトの設定
+| 入力項目                 | 値                   |
+| ------------------------ | -------------------- |
+| プロジェクト名           | `hands-on-project`   |
+
+##### 環境
+| 入力項目                 | 値                   |
+| ------------------------ | -------------------- |
+| 環境イメージ             | マネージド型イメージ |
+| オペレーティングシステム | Ubuntu               |
+| ランタイム               | Node.js              |
+| ランタイムバージョン | aws/codebuild/nodejs:10.14.1 |
+| イメージのバージョン | このランタイムバージョンには常に最新のイメージを使用してください
+| 特権付与 | ✔  |
+| サービスロール | 既存のサービスロール |
+| ロール名 | `hands-on-environment-CodeBuild-ServiceRole` |
+| AWS CodeBuildにこのサービスロールの編集を許可し | (チェックを外す) |
+| びるどしよ
+
+
+##### Buildspec
+| 入力項目                 | 値                   |
+| ------------------------ | -------------------- |
+| ビルド仕様 | buildspecファイルを使用する |
+| BuildSpec名 | (空欄のまま) |
+
+入力が済んだら「CodePipelineに進む」ボタンをクリックします
+
+#### CodePipeline作成画面に戻った後
+CodePipelineの画面に戻ったら、以下のように入力されていることを確認し、「次へ」をクリックします。
+
+| 入力項目                 | 値                   |
+| ------------------------ | -------------------- |
+| ビルドプロバイダ | AWS CodeBuild |
+| プロジェクト名 | `hands-on-project` |
+
+### 「デプロイステージの追加」画面
+
+「デプロイステージの追加」画面に遷移します。
+
+![デプロイステージの追加](images/codepipeline-config-deploy.png)
+
+以下の表のように入力します。
 
 | 入力項目             | 値                              |
 | -------------------- | ------------------------------- |
 | デプロイプロバイダ   | Amazon ECS                      |
 | クラスター名         | hands-on-environment-ECSCluster |
 | サービス名           | hands-on-environment-ECSService |
-| イメージのファイル名 | `imagedefinitions.json`          |
-コピー用
+| イメージ定義ファイル | `imagedefinitions.json`         |
+
 ```
 imagedefinitions.json
 ```
 
-CodePipeline にアタッチする IAM Role の画面に変わるので、「ロールの作成」をクリック後、遷移する画面で「許可」をクリックします。
+「次へ」をクリックします
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-21-640x363.png" alt="devops-hands-on-21" width="640" height="363" class="alignnone size-medium wp-image-259055" />
+### 確認画面
+最後に確認画面が表示されます。
 
-IAM Role の作成が完了したら「次のステップ」をクリックします。
+![確認](images/codepipeline-config-review.png)
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-22-640x223.png" alt="devops-hands-on-22" width="640" height="223" class="alignnone size-medium wp-image-259056" />
-
-最後に確認画面が表示されるので、内容を確認後、「パイプラインの作成」をクリックします。
+表示された設定内容を確認後、「パイプラインの作成」をクリックします。

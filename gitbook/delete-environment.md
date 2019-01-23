@@ -5,34 +5,22 @@
 CloudFormation スタックおよびクローンした GitHub のリポジトリは最後に削除を行ってください。
 
 ### AWS
- 
+
 #### CodePipeline のパイプラインの削除
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/e8c7b85b815b9231b93b6c76a1331441-640x531.png" alt="" width="640" height="531" class="alignnone size-medium wp-image-354244" />
-
+![CodePipeline削除1](images/codepipeline-delete-1.png)
 パイプラインの画面から編集ボタンをクリック、
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/895f14063d9b4ebfc04657899acd08a3-640x463.png" alt="" width="640" height="463" class="alignnone size-medium wp-image-354245" />
+
+![CodePipeline削除2](images/codepipeline-delete-2.png)
 
 表示された編集画面で削除ボタンをクリックし、表示された確認ダイアログにパイプライン名`hands-on-pipeline`を入力して削除します。
 
 #### CodeBuild のプロジェクトの削除
 
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ae5122b2851970fae6d119adab33a263-640x309.png" alt="" width="640" height="309" class="alignnone size-medium wp-image-354247" />
+![CodeBuild削除](images/codebuild-delete.png)
 
 CodeBuild　の画面から、プロジェクト`hands-on-project`を選択した状態で、アクションのドロップダウンリストから削除をクリックします。
-
-#### IAM Role の削除　 CodePipeline用 CodeBuild用
-
-CodeBuild用のロール`hands-on-environment-CodeBuild-ServiceRole`を削除します。
-
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/899fb48d174d86e98f6bb281fd29727e-640x390.png" alt="" width="640" height="390" class="alignnone size-medium wp-image-354249" />
-
-`hands-on-environment-CodeBuild-ServiceRole`という名前のロールを選択し、ロールを削除します。
-
-CodePipelineでの他のプロジェクトが存在しない場合は`AWS-CodePipeline-Service`という名前のロールも同様の手順で削除しましょう。
-
-<img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/b7f0d8a5fdc73ca64c3baaa31e0639ff-640x379.png" alt="" width="640" height="379" class="alignnone size-medium wp-image-354248" />
 
 #### CodePipeline のアーティファクト保存用 S3 バケット削除
 

@@ -1,6 +1,6 @@
-## 自動デプロイ！
+## 自動デプロイ
 
-すると、パイプラインが自動で開始されます。
+パイプラインが作成されると、パイプラインが自動で開始されます。
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ddf0495992f096549e7a7aa62043c03b-640x885.png" alt="" width="640" height="885" class="alignnone size-medium wp-image-348910" />
 
