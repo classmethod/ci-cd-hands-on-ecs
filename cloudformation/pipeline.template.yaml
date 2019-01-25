@@ -9,10 +9,8 @@ Parameters:
     Default: demo
   GitHubOwner:
     Type: String
-    Default: katainaka0503
   GitHubRepo:
     Type: String
-    Default: ci-cd-hands-on
   GitHubBranch:
     Type: String
     Default: master
@@ -24,10 +22,13 @@ Parameters:
     NoEcho: True
   CodeBuildEnvironmentImage:
     Type: String
-    Default: aws/codebuild/nodejs:10.1.0
+    Default: aws/codebuild/nodejs:10.14.1
   CodePipelineArtifactStoreBucket:
     Type: String
-    Default: codepipeline-ap-northeast-1-376338317533
+  ECSClusterName:
+    Type: String
+  ECSServiceName:
+    Type: String
 
 Metadata: 
   AWS::CloudFormation::Interface: 
@@ -37,23 +38,88 @@ Metadata:
         Parameters:
           - CodePipelineArtifactStoreBucket
       - Label: 
-          default: "GitHub Configuration"
+          default: "CodeBuild Configuration"
         Parameters: 
           - CodeBuildEnvironmentImage
       - Label: 
-          default: "CodeBuild Configuration"
+          default: "GitHub Configuration"
         Parameters: 
           - GitHubOwner
           - GitHubRepo
           - GitHubBranch
           - GitHubOAuthToken
           - GitHubWebhookSecretToken
-    ParameterLabels: 
-      VPCID: 
-        default: "Which VPC should this be deployed to?"
-
 
 Resources:
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        !Sub ${Env}-CodeBuildServiceRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub ${AWS::StackName}-CodeBuild-ServiceRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: CloudWatchLogsPolicy
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - "*"
+              - Sid: CodeCommitPolicy
+                Effect: Allow
+                Action:
+                  - codecommit:GitPull
+                Resource:
+                  - "*"
+              - Sid: S3GetObjectPolicy
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource:
+                  - "*"
+              - Sid: S3PutObjectPolicy
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource:
+                  - "*"
+              - Sid: ECRPowerUserPolicy
+                Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:GetRepositoryPolicy
+                  - ecr:DescribeRepositories
+                  - ecr:ListImages
+                  - ecr:DescribeImages
+                  - ecr:BatchGetImage
+                  - ecr:InitiateLayerUpload
+                  - ecr:UploadLayerPart
+                  - ecr:CompleteLayerUpload
+                  - ecr:PutImage
+                Resource:
+                  - "*"
+              - Sid: SSMParameter
+                Action:
+                  - ssm:GetParameters
+                Effect: Allow
+                Resource: 
+                  - "*"
+
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties: 
@@ -68,8 +134,8 @@ Resources:
         Image: !Ref CodeBuildEnvironmentImage
         PrivilegedMode: true
         Type: LINUX_CONTAINER
-      Name: !Sub ${Env}-fizzbuzz-codebuildProject
-      ServiceRole: !ImportValue HandsOnCodeBuildServiceRoleArn
+      Name: !Sub ${Env}-codebuildProject
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
       Tags: 
         - Key: Env
           Value: !Ref Env
@@ -80,9 +146,9 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       RoleName:
-        !Sub ${Env}-fizzbuzz-codepipelineServiceRole
+        !Sub ${Env}-CodePipelineServiceRole
       Policies:
-        - PolicyName: !Sub ${Env}-fizzbuzz-codepipelineServiceRolePolicy
+        - PolicyName: !Sub ${Env}-CodePipelineServiceRolePolicy
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -188,7 +254,7 @@ Resources:
     Type: AWS::CodePipeline::Pipeline
     Properties: 
       Name:
-        !Sub ${Env}-fizzbuzz-codepipeline
+        !Sub ${Env}-CodePipeline
       RoleArn: 
         !GetAtt CodePipelineServiceRole.Arn
       Stages: 
@@ -236,9 +302,9 @@ Resources:
                 Provider: ECS
               Configuration: 
                 ClusterName: 
-                  !ImportValue HandsOnECSClusterName
+                  !Ref ECSClusterName
                 ServiceName: 
-                  !ImportValue HandsOnECSServiceName
+                  !Ref ECSServiceName
                 FileName: imagedefinitions.json
               RunOrder: 1
       ArtifactStore: 
@@ -257,6 +323,6 @@ Resources:
       Authentication: GITHUB_HMAC
       TargetPipeline: !Ref CodePipeline
       TargetAction: SourceAction
-      Name: !Sub ${Env}-fizzbuzz-codepipelineWebhook
+      Name: !Sub ${Env}-CodePipelineWebhook
       TargetPipelineVersion: !GetAtt CodePipeline.Version
       RegisterWithThirdParty: 'true'
