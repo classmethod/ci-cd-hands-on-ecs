@@ -1,3 +1,3 @@
 ## CI/CDハンズオン
 
-https://katainaka0503.github.io/ci-cd-hands-on/
+[ハンズオンのドキュメント](https://classmethod.github.io/ci-cd-hands-on-ecs/)
