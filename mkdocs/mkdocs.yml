@@ -10,4 +10,4 @@ nav:
     - まとめ: conclusion.md
     - 参考資料: reference.md
     - 補足：環境の削除: delete-environment.md
-theme: readthedocs
+theme: 'material'
