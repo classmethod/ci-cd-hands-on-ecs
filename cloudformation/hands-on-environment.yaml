@@ -36,32 +36,21 @@ Parameters:
     Default: 738965884675.dkr.ecr.ap-northeast-1.amazonaws.com/ci-cd-hands-on:node
 
 Resources:
-  ECRRepository:
-    Type: "AWS::ECR::Repository"
-
-  ImageRepositoryName: 
-    Type: "AWS::SSM::Parameter"
-    Properties: 
-      Name: IMAGE_REPOSITORY_NAME
-      Description: image repository name
-      Type: String
-      Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepository}
-
-  ## VPC and Subnets and so on...
+  ## VPC and Subnets
   VPC: 
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR 
       Tags:
         - Key: Name
-          Value: demo-infra-VPC
+          Value: !Sub ${AWS::StackName}-VPC
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: demo-infra-InternetGateway
+          Value: !Sub ${AWS::StackName}-InternetGateway
 
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -78,7 +67,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: demo-infra-PublicSubnet1
+          Value: !Sub ${AWS::StackName}-PublicSubnet1
 
   PublicSubnet2: 
     Type: AWS::EC2::Subnet
@@ -89,7 +78,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: demo-infra-PublicSubnet2
+          Value: !Sub ${AWS::StackName}-PublicSubnet2
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -99,7 +88,7 @@ Resources:
       CidrBlock: !Ref PrivateSubnet1CIDR
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateSubnet1
+          Value: !Sub ${AWS::StackName}-PrivateSubnet1
 
   PrivateSubnet2: 
     Type: AWS::EC2::Subnet
@@ -109,7 +98,7 @@ Resources:
       CidrBlock: !Ref PrivateSubnet2CIDR
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateSubnet2
+          Value: !Sub ${AWS::StackName}-PrivateSubnet2
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
@@ -117,7 +106,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: demo-infra-PublicRouteTable
+          Value: !Sub ${AWS::StackName}-PublicRouteTable
 
   DefaultPublicRoute: 
     Type: AWS::EC2::Route
@@ -145,7 +134,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: demo-infra-PrivateRouteTable
+          Value: !Sub ${AWS::StackName}-PrivateRouteTable
 
   DefaultPrivateRoute:
     Type: AWS::EC2::Route
@@ -179,7 +168,7 @@ Resources:
       SubnetId: !Ref PublicSubnet1
       Tags:
         - Key: Name
-          Value: demo-infra-NatGateway
+          Value: !Sub ${AWS::StackName}-NatGateway
 
   FargateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -194,7 +183,7 @@ Resources:
           SourceSecurityGroupId: !Ref ALBSecurityGroup
       Tags:
         - Key: Name
-          Value: demo-infra-FargateSecurityGroup
+          Value: !Sub ${AWS::StackName}-FargateSecurityGroup
   
   ALBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -207,7 +196,7 @@ Resources:
             IpProtocol: -1
       Tags:
         - Key: Name
-          Value: demo-infra-ALBSecurityGroup
+          Value: !Sub ${AWS::StackName}-ALBSecurityGroup
 
   ## ECS Resources
   ECSCluster:
@@ -269,11 +258,23 @@ Resources:
           TargetGroupArn: !Ref TargetGroup
     DependsOn: LoadBalancerListener
 
+  ECRRepository:
+    Type: "AWS::ECR::Repository"
+
+  ImageRepositoryName: 
+    Type: "AWS::SSM::Parameter"
+    Properties: 
+      Name: IMAGE_REPOSITORY_NAME
+      Description: image repository name
+      Type: String
+      Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepository}
+
   ## ALB Resources
   ALB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internet-facing
+      Name: !Sub ${AWS::StackName}-ALB
       LoadBalancerAttributes:
       - Key: idle_timeout.timeout_seconds
         Value: '30'
