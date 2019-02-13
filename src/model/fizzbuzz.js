@@ -2,7 +2,7 @@ module.exports = (number) => {
   let result = [];
 
   for (let i = 1; i <= number; i++) {
-    if (i % 15 == 0) {
+    if (i % 10 == 0) {
       result.push("FizzBuzz");
     } else if (i % 3 == 0) {
       result.push("Fizz");
