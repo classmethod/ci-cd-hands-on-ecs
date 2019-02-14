@@ -1,12 +1,12 @@
-# 補足. 環境の削除
+# 補足。 環境の削除
 
 ハンズオンで作成した環境を削除したい場合は以下の手順を参考にしてください。
 リソース間の依存関係がある関係で削除に失敗することがあるため、
-CloudFormation スタックおよびクローンした GitHub のリポジトリは最後に削除を行ってください。
+CloudFormationスタックおよびクローンしたGitHubのリポジトリは最後に削除を行ってください。
 
 ## AWS
 
-### CodePipeline のパイプラインの削除
+### CodePipelineのパイプラインの削除
 
 ![CodePipeline削除1](images/codepipeline-delete-1.png)
 パイプラインの画面から編集ボタンをクリックします。
@@ -16,13 +16,13 @@ CloudFormation スタックおよびクローンした GitHub のリポジトリ
 
 表示された編集画面で削除ボタンをクリックし、表示された確認ダイアログにパイプライン名`hands-on-pipeline`を入力して削除します。
 
-### CodeBuild のプロジェクトの削除
+### CodeBuildのプロジェクトの削除
 
 ![CodeBuild削除](images/codebuild-delete.png)
 
 CodeBuild　の画面から、プロジェクト`hands-on-project`を選択した状態で、アクションのドロップダウンリストから削除をクリックします。
 
-### CodePipeline のアーティファクト保存用 S3 バケット削除
+### CodePipelineのアーティファクト保存用S3バケット削除
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/42dfdf601622493f20cbdffbf8f2c374-640x280.png" alt="" width="640" height="280" class="alignnone size-medium wp-image-354250" />
 
@@ -36,7 +36,7 @@ CodeBuild　の画面から、プロジェクト`hands-on-project`を選択し�
 
 他のフォルダがあれば、フォルダ以下を削除します。
 
-### ECR リポジトリ内のイメージをすべて削除
+### ECRリポジトリ内のイメージをすべて削除
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/899ad3960898d06dacd6be39a3ca0f85-640x247.png" alt="" width="640" height="247" class="alignnone size-medium wp-image-354254" />
 
@@ -46,13 +46,13 @@ ECSの画面の左側にある、リポジトリのリンクをクリックし�
 
 そして、すべてのイメージを選択し、削除を行います。リポジトリ自体は削除しなくても大丈夫です。
 
-### CloudFormation スタックの削除
+### CloudFormationスタックの削除
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/496450dcfb095b95105cd9264d5d67af-640x354.png" alt="" width="640" height="354" class="alignnone size-medium wp-image-354256" />
 
 CloudFormationのコンソールから、`hands-on-environment`という名前のスタックを選択し、削除します。
 
-### hands-on-task-definition の登録を解除
+### hands-on-task-definitionの登録を解除
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/15a28e586fc12d481269df69037a1e76-640x388.png" alt="" width="640" height="388" class="alignnone size-medium wp-image-354257" />
 

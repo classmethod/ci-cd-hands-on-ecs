@@ -3,7 +3,7 @@
 
 バグが混入した際に、テストで処理が失敗し、デプロイが途中で止まることを確認するため、フォークしたリポジトリのコードを修正します。
 
-エディタで FizzBuzz のロジックが記述されているファイル、`src/model/fizzbuzz.js`を開きます。
+エディタでFizzBuzzのロジックが記述されているファイル、`src/model/fizzbuzz.js`を開きます。
 
 意図的にバグを混入させるためコードを修正します。
 
@@ -19,15 +19,15 @@ if (i % 10 == 0) {
 
 
 
-修正が終わったらコミットし、GitHub 上にプッシュします。
+修正が終わったらコミットし、GitHub上にプッシュします。
 
 ```shell
 git commit -am bug
 git push origin master
 ```
 
-GitHub にプッシュすると、CodePipeline での処理が開始されます。
-しかし、CodeBuild でテストが失敗し、ECS へのデプロイは実行されません。
+GitHubにプッシュすると、CodePipelineでの処理が開始されます。
+しかし、CodeBuildでテストが失敗し、ECSへのデプロイは実行されません。
 
 ![テスト失敗](images/test-failed.png)
 
