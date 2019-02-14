@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/**/*.test.js",
-    "build-doc": "cd mkdocs && mkdocs build -d ../docs",
+    "mkdocs-build": "cd mkdocs && mkdocs build -d ../docs",
+    "mkdocs-serve": "cd mkdocs && mkdocs serve",
     "textlint": "./node_modules/.bin/textlint mkdocs"
   },
   "author": "cm-yamasaki.michihiro",
