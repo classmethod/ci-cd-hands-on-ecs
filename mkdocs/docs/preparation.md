@@ -4,7 +4,7 @@
 
 まずは、[このリポジトリ](https://github.com/classmethod/ci-cd-hands-on-ecs)をフォークし、自分のアカウントにリポジトリを作成します。
 
-サンプルアプリケーションは、指定された数まで FizzBuzz を表示する Node.js による簡単なアプリケーションです
+サンプルアプリケーションは、指定された数まで FizzBuzz を表示する Node.js による簡単なアプリケーションです。
 
 ![fork](images/fork.png)
 
@@ -33,13 +33,13 @@ buildspec.yml		package-lock.json	test
 
 今回 ECS でアプリケーションを動作させるにあたってサービスにリンクしたロールが作成されている必要があります。そのため、IAM のコンソールを開き、`AWSServiceRoleForECS`というロールがあるかを確認してください。ない場合はサービスにリンクしたロールがない状態ですので、ECSのタスクの実行が失敗してしまいます。
 
-その場合は、以下のコマンドを実行するか
+その場合は、以下のコマンドを実行してECSのサービスにリンクしたロールが作成された状態にします。
 
 ```shell
 aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 ```
 
-空の ECS のクラスタを作成し、すぐに削除するなどして ECS のサービスにリンクしたロールが作成された状態にします。
+
 
 ## ハンズオン用環境構築用の CloudFormation の実行
 

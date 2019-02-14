@@ -9,7 +9,7 @@ CloudFormation スタックおよびクローンした GitHub のリポジトリ
 ### CodePipeline のパイプラインの削除
 
 ![CodePipeline削除1](images/codepipeline-delete-1.png)
-パイプラインの画面から編集ボタンをクリック、
+パイプラインの画面から編集ボタンをクリックします。
 
 
 ![CodePipeline削除2](images/codepipeline-delete-2.png)
@@ -26,7 +26,7 @@ CodeBuild　の画面から、プロジェクト`hands-on-project`を選択し�
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/42dfdf601622493f20cbdffbf8f2c374-640x280.png" alt="" width="640" height="280" class="alignnone size-medium wp-image-354250" />
 
-`codepipeline-ap-northeast-1-****`バケットの中身を確認し、
+`codepipeline-ap-northeast-1-****`バケットの中身を確認します。
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/1a31704e05462dde8750e59651f7888e-640x280.png" alt="" width="640" height="280" class="alignnone size-medium wp-image-354251" />
 
@@ -50,7 +50,7 @@ ECSの画面の左側にある、リポジトリのリンクをクリックし�
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/496450dcfb095b95105cd9264d5d67af-640x354.png" alt="" width="640" height="354" class="alignnone size-medium wp-image-354256" />
 
-CloudFormationのコンソールから、`hands-on-environment`という名前のスタックを選択し、削除します
+CloudFormationのコンソールから、`hands-on-environment`という名前のスタックを選択し、削除します。
 
 ### hands-on-task-definition の登録を解除
 
@@ -68,7 +68,7 @@ ECSの画面の左側にある、タスク定義のリンクをクリックし�
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/0539d520bebeb1e1782c3f33538578bb-640x214.png" alt="" width="640" height="214" class="alignnone size-medium wp-image-354260" />
 
-フォーク先リポジトリのSettingを開き、
+フォーク先リポジトリのSettingを開きます。
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/3b7190c3bdf6c2d9e5afa64505c426d9-640x341.png" alt="" width="640" height="341" class="alignnone size-medium wp-image-354261" />
 

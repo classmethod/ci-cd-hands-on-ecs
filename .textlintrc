@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-todo": true,
+    "preset-ja-technical-writing": true
+  }
+}

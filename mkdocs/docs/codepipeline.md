@@ -47,7 +47,7 @@
 
 ![GitHubに接続](images/connect-to-github.png)
 
-CodePipelineでGitHubを使用する設定を行うのが初回の場合、ボタンをクリックすると、以下の画像のような画面が表示されるので、`Authorize aws-codesuite`ボタンを押してください。
+初めてCodePipelineでGitHubを使用する設定を行う場合、ボタンをクリックすると、以下の画像のような画面が表示されます。表示された画面の`Authorize aws-codesuite`ボタンを押してください。
 
 ![GitHub OAuth](images/github_oauth.png)
 
@@ -104,7 +104,7 @@ CodeBuild のプロジェクトを作成していきます。
 | ビルド仕様 | buildspecファイルを使用する |
 | BuildSpec名 | (空欄のまま) |
 
-入力が済んだら「CodePipelineに進む」ボタンをクリックします
+入力が済んだら「CodePipelineに進む」ボタンをクリックします。
 
 ### CodePipeline作成画面に戻った後
 CodePipelineの画面に戻ったら、以下のように入力されていることを確認し、「次へ」をクリックします。
@@ -133,7 +133,7 @@ CodePipelineの画面に戻ったら、以下のように入力されている�
 imagedefinitions.json
 ```
 
-「次へ」をクリックします
+「次へ」をクリックします。
 
 ## 確認画面
 最後に確認画面が表示されます。
