@@ -8,6 +8,6 @@
 
 ![パイプライン](images/pipeline.png)
 
-- GitHub にコードがプッシュされると CodePipeline での処理が開始されます。
-- CodeBuild ではテスト、Docker イメージの作成および作成したイメージの ECR へのプッシュを行います。
-- CodeBuild での処理が成功したら ECS に新しいバージョンのイメージがデプロイされます。
+- GitHubにコードがプッシュされるとCodePipelineでの処理が開始されます。
+- CodeBuildではテスト、Dockerイメージの作成および作成したイメージのECRへのプッシュを行います。
+- CodeBuildでの処理が成功したらECSに新しいバージョンのイメージがデプロイされます。

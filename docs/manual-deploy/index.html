@@ -396,7 +396,7 @@
                 <h1 id="_1">手動デプロイしてみる</h1>
 <p><strong>イベントでは講師が実演します。このページを読み飛ばして次に進むことも可能です。</strong></p>
 <h2 id="_2">ローカルで変更をコミット</h2>
-<p><code>ecs-deploy</code>のようなデプロイに便利なツールもありますが、CodeBuild で行う処理との対比をわかりやすくするため、ここではそういったものは使わずにデプロイを実行します。</p>
+<p><code>ecs-deploy</code>のようなデプロイに便利なツールもありますが、CodeBuildで行う処理との対比をわかりやすくするため、ここではそういったものは使わずにデプロイを実行します。</p>
 <p>今回は画面に修正を行ったものをデプロイしていきます。</p>
 <p>以下のコマンドを実行し、コードを修正、変更内容をコミットします。</p>
 <pre><code class="shell">npm install
@@ -407,7 +407,7 @@ git commit -am &quot;manual deploy&quot;
 
 <h2 id="dockerecr">Dockerイメージを作成し、ECRにプッシュ</h2>
 <p>つぎに以下のコマンドを実行し、手動でデプロイを実行します。</p>
-<p>まず、手元で Docker イメージを構築し、ECR にプッシュします。</p>
+<p>まず、手元でDockerイメージを構築し、ECRにプッシュします。</p>
 <pre><code>$(aws ecr get-login --no-include-email --region ap-northeast-1)
 
 IMAGE_REPOSITORY_NAME=`aws ssm get-parameter --name &quot;IMAGE_REPOSITORY_NAME&quot; --region ap-northeast-1 | jq -r .Parameter.Value`
@@ -418,19 +418,19 @@ docker push $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
 echo $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
 </code></pre>
 
-<p>ECS の設定の修正で使用するため、イメージをプッシュしたリポジトリとタグの値を覚えておきます。</p>
+<p>ECSの設定の修正で使用するため、イメージをプッシュしたリポジトリとタグの値を覚えておきます。</p>
 <p>ここまでに行ったローカルの作業でも、意図したものとは異なるソースコードをデプロイしてしまうリスクがあります。</p>
 <ul>
 <li>プッシュする対象とは異なるブランチで作業を行っていた場合</li>
 <li>リモートブランチとの同期を忘れるなどした場合には</li>
 </ul>
 <h2 id="ecs">ECSのタスク定義の新リビジョン作成・サービスの更新</h2>
-<p>つぎに、コンソールの操作に移り、実際に ECS へのデプロイを行っていきます。</p>
-<p>マネジメントコンソールから ECS の画面に移動します。</p>
+<p>つぎに、コンソールの操作に移り、実際にECSへのデプロイを行っていきます。</p>
+<p>マネジメントコンソールからECSの画面に移動します。</p>
 <p><img alt="コンソールからECS" src="../images/console-to-ecs.png" /></p>
 <p>まず、タスク定義の新しいリビジョンを作成します。</p>
 <p>環境構築用スタックによって作成されたタスクの新しいリビジョンの作成画面を表示します。
-コンテナ名 fizzbuzz の設定画面に移動し、イメージの指定を先程プッシュしたイメージのものに書き換え新しいリビジョンを作成します。</p>
+コンテナ名fizzbuzzの設定画面に移動し、イメージの指定を先程プッシュしたイメージのものに書き換え新しいリビジョンを作成します。</p>
 <p><img alt="イメージを置き換え" src="../images/edit-container-image.png" /></p>
 <p>次に、環境構築用スタックによって作成されたサービスの編集画面に移動します。
 この画面で、新しいタスク定義のリビジョンを指定するように編集をおこない、サービスの更新を実行します。</p>
