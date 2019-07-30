@@ -6,6 +6,8 @@ env:
 
 phases:
   install:
+    runtime-versions:
+       nodejs: 10
     commands:
       ## 依存パッケージをインストール
       - npm install
